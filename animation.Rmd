@@ -34,7 +34,7 @@ p
 # Basics
 
 ```{r}
-file_renderer(dir = "/Users/hqin/github/R-animation-sandbox/tmp/", prefix = "gganim_plot", overwrite = TRUE)
+file_renderer(dir = "/Users/hqin/github/R-animation-sandbox", prefix = "gganim_plot", overwrite = TRUE)
 
 anim <- p + transition_time(year) +
   labs(title = "Year: {frame_time}")
