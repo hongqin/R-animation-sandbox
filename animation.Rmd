@@ -1,0 +1,44 @@
+---
+title: "R animation"
+output: html_notebook
+---
+
+reference:
+https://www.datanovia.com/en/blog/gganimate-how-to-create-plots-with-beautiful-animation-in-r/ 
+
+```{r}
+library(ggplot2)
+library(gganimate)
+theme_set(theme_bw())
+```
+
+```{r}
+library(gapminder)
+head(gapminder)
+```
+# static plot
+
+```{r}
+p <- ggplot(
+  gapminder, 
+  aes(x = gdpPercap, y=lifeExp, size = pop, colour = country)
+  ) +
+  geom_point(show.legend = FALSE, alpha = 0.7) +
+  scale_color_viridis_d() +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  labs(x = "GDP per capita", y = "Life expectancy")
+p
+```
+
+# Basics
+
+```{r}
+file_renderer(dir = "/Users/hqin/github/R-animation-sandbox/tmp/", prefix = "gganim_plot", overwrite = TRUE)
+
+anim <- p + transition_time(year) +
+  labs(title = "Year: {frame_time}")
+
+gganimate::animate( anim, renderer=ffmpeg_renderer())
+```
+
